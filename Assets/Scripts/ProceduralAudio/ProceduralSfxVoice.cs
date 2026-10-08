@@ -2,84 +2,67 @@ using UnityEngine;
 
 namespace ProceduralAudio
 {
-    // Formas de onda disponibles para los efectos. Son las mismas del
-    // SimpleAdditiveOscillator de la Guia 2; "Additive" suma parciales con
-    // amplitud 1/n, igual que la serie de armonicos trabajada en clase.
-    public enum SfxWaveform
-    {
-        Sine,
-        Triangle,
-        Square,
-        Sawtooth,
-        Additive
-    }
-
-    // Un "patch" describe COMO suena un evento: oscilador, envolvente,
-    // barrido de tono, FM y ruido. El manager arma un patch por cada evento
-    // del juego y se lo entrega a una voz libre.
-    [System.Serializable]
     public struct SfxPatch
     {
-        public SfxWaveform waveform;
-        public int partials;        // numero de parciales (solo modo Additive)
+        public WaveformType waveform;
+        public AdditiveMode additiveMode;
+        public int harmonicCount;
+        public float[] harmonicLevels;
+        public float[] wavetable;
 
-        public float startFreq;     // Hz al inicio del sonido
-        public float endFreq;       // Hz al final del barrido
-        public float glideTime;     // segundos que tarda el barrido (pitch envelope)
+        public float frequency;
+        public float glideSemitones;
+        public float glideTime;
+        public float amplitude;
 
-        public float attack;        // ADSR en segundos (sustain es nivel 0-1)
+        public float attack;
         public float decay;
-        public float sustain;
+        public float sustainLevel;
+        public float sustainDuration;
         public float release;
-        public float hold;          // segundos desde el inicio hasta soltar la "tecla"
 
-        public float fmRatio;       // relacion modulador/portadora (FM ligera)
-        public float fmIndex;       // profundidad de la FM; 0 = sin FM
+        public float fmRatio;
+        public float fmIndex;
 
-        public float noiseMix;      // 0 = solo oscilador, 1 = solo ruido blanco
-        public float gain;          // amplitud final de este sonido
+        public float tremoloRate;
+        public float tremoloDepth;
+        public float vibratoRate;
+        public float vibratoSemitones;
+
+        public float noiseMix;
+        public float lowpassCutoff;
     }
 
-    // Una voz = un AudioSource + este script generando muestras en
-    // OnAudioFilterRead. Es la evolucion del SimpleAdditiveOscillator:
-    // conserva la ADSR, pero ahora funciona en modo "one-shot" porque en el
-    // juego nadie suelta una tecla; el sonido se apaga solo despues de "hold".
     [RequireComponent(typeof(AudioSource))]
     public class ProceduralSfxVoice : MonoBehaviour
     {
-        enum Stage { Idle, Attack, Decay, Sustain, Release }
+        enum AdsrStage { Idle, Attack, Decay, Sustain, Release }
 
-        // Se lee de AudioSettings en vez de fijar 44100, porque muchos
-        // equipos y celulares trabajan a 48000 Hz y todo sonaria desafinado.
         float sampleRate = 48000f;
 
-        // --- Datos que escribe el hilo principal (Unity) ---
-        // OnAudioFilterRead corre en OTRO hilo (el de audio). Por eso el hilo
-        // principal no toca directamente el estado del sonido: deja un patch
-        // "pendiente" y levanta una bandera que el hilo de audio recoge.
         SfxPatch pendingPatch;
         int pendingDelaySamples;
         volatile bool hasPending;
+        volatile bool noteOffRequested;
         volatile bool busy;
 
-        // --- Estado que solo usa el hilo de audio ---
-        SfxPatch patch;
-        Stage stage = Stage.Idle;
-        float env;
-        float releaseStep;
+        SfxPatch p;
+        AdsrStage stage = AdsrStage.Idle;
+        float envelopeValue = 0f;
+        float releaseStartValue = 0f;
+        float sustainTimer = 0f;
+        float noteTime = 0f;
         int delaySamples;
-        int sampleCount;
-        int holdSamples;
 
-        // Acumuladores de fase en lugar de un indice de tiempo (timeIndex).
-        // Con timeIndex, cambiar la frecuencia a mitad del sonido produce
-        // saltos en la onda; con fase acumulada el barrido de tono es continuo.
         double phase;
         double modPhase;
+        double tremoloPhase;
+        double vibratoPhase;
 
+        float filterState;
+        float filterCoef = 1f;
         uint noiseState = 22222u;
 
-        // El manager consulta esto para saber si la voz esta libre.
         public bool IsBusy { get { return busy; } }
         public float StartedAt { get; private set; }
 
@@ -87,9 +70,6 @@ namespace ProceduralAudio
         {
             sampleRate = AudioSettings.outputSampleRate;
 
-            // AudioSource sin clip: solo sirve de "enchufe" para que Unity
-            // llame a OnAudioFilterRead. Sonido 2D (sin espacializacion)
-            // porque los efectos de interfaz no dependen de la camara.
             var source = GetComponent<AudioSource>();
             source.playOnAwake = false;
             source.spatialBlend = 0f;
@@ -97,123 +77,217 @@ namespace ProceduralAudio
             source.Play();
         }
 
-        // Llamado desde el manager (hilo principal).
-        public void Play(SfxPatch newPatch, float delaySeconds)
+        public void NoteOn(SfxPatch patch, float delaySeconds)
         {
-            pendingPatch = newPatch;
-            // El retardo se cuenta en muestras: es exacto y no depende de
-            // corrutinas ni de los cuadros por segundo del juego.
+            pendingPatch = patch;
             pendingDelaySamples = Mathf.Max(0, Mathf.RoundToInt(delaySeconds * sampleRate));
             StartedAt = Time.time;
             busy = true;
+            noteOffRequested = false;
             hasPending = true;
         }
 
-        void OnAudioFilterRead(float[] data, int channels)
+        public void NoteOff()
         {
-            if (hasPending)
-            {
-                patch = pendingPatch;
-                delaySamples = pendingDelaySamples;
-                sampleCount = 0;
-                holdSamples = Mathf.RoundToInt(patch.hold * sampleRate);
-                // No se reinician env ni phase: si la voz estaba sonando, el
-                // nuevo ataque parte del valor actual y se evita un "clic".
-                stage = Stage.Attack;
-                hasPending = false;
-            }
-
-            if (stage == Stage.Idle)
-            {
-                return; // el buffer ya viene en silencio (no hay clip)
-            }
-
-            for (int i = 0; i < data.Length; i += channels)
-            {
-                float s = 0f;
-
-                if (delaySamples > 0)
-                {
-                    delaySamples--;
-                }
-                else if (stage != Stage.Idle)
-                {
-                    // Igual que en la Guia 2: señal * envolvente * amplitud.
-                    s = NextSample() * NextEnvelope() * patch.gain;
-                    sampleCount++;
-                }
-
-                for (int c = 0; c < channels; c++)
-                {
-                    data[i + c] = s;
-                }
-            }
+            noteOffRequested = true;
         }
 
-        float NextSample()
+        void StartPendingNote()
         {
-            float t = sampleCount / sampleRate;
+            p = pendingPatch;
+            delaySamples = pendingDelaySamples;
+            noteTime = 0f;
+            sustainTimer = 0f;
 
-            // Pitch envelope exponencial: el oido percibe el tono de forma
-            // logaritmica, asi que un barrido exponencial suena "parejo".
-            float glide = patch.glideTime > 0f ? Mathf.Clamp01(t / patch.glideTime) : 1f;
-            float start = Mathf.Max(1f, patch.startFreq);
-            float end = Mathf.Max(1f, patch.endFreq);
-            float freq = start * Mathf.Pow(end / start, glide);
+            stage = AdsrStage.Attack;
 
-            // FM ligera: un seno modulador desvia la frecuencia de la
-            // portadora. Con indices bajos agrega aspereza sin volverse ruido.
-            float mod = 0f;
-            if (patch.fmIndex > 0f)
-            {
-                mod = Mathf.Sin((float)(2.0 * System.Math.PI * modPhase)) * patch.fmIndex * freq;
-                modPhase += freq * patch.fmRatio / sampleRate;
-                modPhase -= System.Math.Floor(modPhase);
-            }
+            filterCoef = p.lowpassCutoff >= 19999f
+                ? 1f
+                : 1f - Mathf.Exp(-2f * Mathf.PI * p.lowpassCutoff / sampleRate);
 
-            phase += (freq + mod) / sampleRate;
-            phase -= System.Math.Floor(phase);
-
-            float osc = Oscillator((float)phase);
-
-            if (patch.noiseMix > 0f)
-            {
-                osc = Mathf.Lerp(osc, Noise(), patch.noiseMix);
-            }
-
-            return osc;
+            hasPending = false;
         }
 
-        // p es la fase normalizada entre 0 y 1.
-        float Oscillator(float p)
+        float EvaluateAdsr(float dt)
         {
-            switch (patch.waveform)
+            switch (stage)
             {
-                case SfxWaveform.Triangle:
-                    return 1f - 4f * Mathf.Abs(p - 0.5f);
-                case SfxWaveform.Square:
-                    return p < 0.5f ? 1f : -1f;
-                case SfxWaveform.Sawtooth:
-                    return 2f * p - 1f;
-                case SfxWaveform.Additive:
-                    // Suma de senoidales con amplitud 1/n, normalizada para
-                    // que agregar parciales no aumente el volumen (ni clipee).
-                    int n = Mathf.Clamp(patch.partials, 1, 9);
-                    float sum = 0f;
-                    float norm = 0f;
-                    for (int k = 1; k <= n; k++)
+                case AdsrStage.Attack:
+                    envelopeValue += dt / Mathf.Max(p.attack, 0.0001f);
+                    if (envelopeValue >= 1f)
                     {
-                        sum += Mathf.Sin(2f * Mathf.PI * k * p) / k;
-                        norm += 1f / k;
+                        envelopeValue = 1f;
+                        stage = AdsrStage.Decay;
                     }
-                    return sum / norm;
-                default:
-                    return Mathf.Sin(2f * Mathf.PI * p);
+                    break;
+
+                case AdsrStage.Decay:
+                    envelopeValue -= dt * (1f - p.sustainLevel) / Mathf.Max(p.decay, 0.0001f);
+                    if (envelopeValue <= p.sustainLevel)
+                    {
+                        envelopeValue = p.sustainLevel;
+                        stage = AdsrStage.Sustain;
+                        sustainTimer = 0f;
+                    }
+                    break;
+
+                case AdsrStage.Sustain:
+                    sustainTimer += dt;
+                    if (sustainTimer >= p.sustainDuration)
+                    {
+                        releaseStartValue = envelopeValue;
+                        stage = AdsrStage.Release;
+                    }
+                    break;
+
+                case AdsrStage.Release:
+                    envelopeValue -= dt * releaseStartValue / Mathf.Max(p.release, 0.0001f);
+                    if (envelopeValue <= 0f)
+                    {
+                        envelopeValue = 0f;
+                        stage = AdsrStage.Idle;
+                        busy = false;
+                    }
+                    break;
+            }
+
+            return envelopeValue;
+        }
+
+        float SineWave(float ph)
+        {
+            return Mathf.Sin(2f * Mathf.PI * ph);
+        }
+
+        float SquareWave(float ph)
+        {
+            return Mathf.Sign(SineWave(ph));
+        }
+
+        float TriangleWave(float ph)
+        {
+            return 1f - 4f * Mathf.Abs(ph - 0.5f);
+        }
+
+        float SawtoothWave(float ph)
+        {
+            return 1f - 2f * ph;
+        }
+
+        float AdditiveGeneric(float ph)
+        {
+            int count = Mathf.Clamp(p.harmonicCount, 1, p.harmonicLevels != null ? p.harmonicLevels.Length : 1);
+            if (p.harmonicLevels == null) return SineWave(ph);
+
+            float sum = 0f;
+            float totalLevel = 0f;
+
+            for (int harmonic = 1; harmonic <= count; harmonic++)
+            {
+                float level = p.harmonicLevels[harmonic - 1];
+                sum += level * SineWave(harmonic * ph);
+                totalLevel += level;
+            }
+
+            return totalLevel > 0f ? sum / totalLevel : 0f;
+        }
+
+        float AdditiveSquareFourier(float ph)
+        {
+            float sum = 0f;
+            for (int i = 0; i < p.harmonicCount; i++)
+            {
+                int k = 2 * i + 1;
+                sum += (1f / k) * SineWave(k * ph);
+            }
+            return sum * 4f / Mathf.PI;
+        }
+
+        float AdditiveTriangleFourier(float ph)
+        {
+            float sum = 0f;
+            for (int i = 0; i < p.harmonicCount; i++)
+            {
+                int k = 2 * i + 1;
+                float sign = (i % 2 == 0) ? 1f : -1f;
+                sum += sign * (1f / (k * k)) * SineWave(k * ph);
+            }
+            return sum * 8f / (Mathf.PI * Mathf.PI);
+        }
+
+        float AdditiveSawtoothFourier(float ph)
+        {
+            float sum = 0f;
+            for (int k = 1; k <= p.harmonicCount; k++)
+            {
+                float sign = (k % 2 == 0) ? -1f : 1f;
+                sum += sign * (1f / k) * SineWave(k * ph);
+            }
+            return sum * 2f / Mathf.PI;
+        }
+
+        float AdditiveWave(float ph)
+        {
+            switch (p.additiveMode)
+            {
+                case AdditiveMode.SquareFourier: return AdditiveSquareFourier(ph);
+                case AdditiveMode.TriangleFourier: return AdditiveTriangleFourier(ph);
+                case AdditiveMode.SawtoothFourier: return AdditiveSawtoothFourier(ph);
+                default: return AdditiveGeneric(ph);
             }
         }
 
-        // Ruido blanco con xorshift: no se usa UnityEngine.Random porque
-        // la API de Unity no debe llamarse desde el hilo de audio.
+        float ReadWavetable(float phase01)
+        {
+            float[] table = p.wavetable;
+            if (table == null || table.Length < 2) return SineWave(phase01);
+
+            float exactIndex = phase01 * table.Length;
+            int i0 = Mathf.FloorToInt(exactIndex) % table.Length;
+            int i1 = (i0 + 1) % table.Length;
+            float frac = exactIndex - Mathf.Floor(exactIndex);
+
+            return Mathf.Lerp(table[i0], table[i1], frac);
+        }
+
+        float GetSample(float ph)
+        {
+            switch (p.waveform)
+            {
+                case WaveformType.Square: return SquareWave(ph);
+                case WaveformType.Triangle: return TriangleWave(ph);
+                case WaveformType.Sawtooth: return SawtoothWave(ph);
+                case WaveformType.Additive: return AdditiveWave(ph);
+                case WaveformType.Wavetable: return ReadWavetable(ph);
+                default: return SineWave(ph);
+            }
+        }
+
+        float CurrentFrequency(float dt)
+        {
+            float glide = p.glideTime > 0f ? Mathf.Clamp01(noteTime / p.glideTime) : 1f;
+            float semitones = p.glideSemitones * glide;
+
+            if (p.vibratoRate > 0f && p.vibratoSemitones > 0f)
+            {
+                semitones += p.vibratoSemitones * SineWave((float)vibratoPhase);
+                vibratoPhase += p.vibratoRate * dt;
+                vibratoPhase -= System.Math.Floor(vibratoPhase);
+            }
+
+            return p.frequency * Mathf.Pow(2f, semitones / 12f);
+        }
+
+        float Tremolo(float dt)
+        {
+            if (p.tremoloRate <= 0f || p.tremoloDepth <= 0f) return 1f;
+
+            float lfo = 0.5f + 0.5f * SineWave((float)tremoloPhase);
+            tremoloPhase += p.tremoloRate * dt;
+            tremoloPhase -= System.Math.Floor(tremoloPhase);
+            return 1f - p.tremoloDepth * lfo;
+        }
+
         float Noise()
         {
             noiseState ^= noiseState << 13;
@@ -222,51 +296,78 @@ namespace ProceduralAudio
             return (noiseState / (float)uint.MaxValue) * 2f - 1f;
         }
 
-        // ADSR lineal por muestra, la misma logica de EvaluateAdsr de la
-        // Guia 2, con "hold" haciendo el papel de NoteOff automatico.
-        float NextEnvelope()
+        float NextSample(float dt)
         {
-            switch (stage)
+            float freq = CurrentFrequency(dt);
+
+            float mod = 0f;
+            if (p.fmIndex > 0f)
             {
-                case Stage.Attack:
-                    env += 1f / Mathf.Max(1f, patch.attack * sampleRate);
-                    if (env >= 1f)
-                    {
-                        env = 1f;
-                        stage = Stage.Decay;
-                    }
-                    break;
-
-                case Stage.Decay:
-                    env -= (1f - patch.sustain) / Mathf.Max(1f, patch.decay * sampleRate);
-                    if (env <= patch.sustain)
-                    {
-                        env = patch.sustain;
-                        stage = Stage.Sustain;
-                    }
-                    break;
-
-                case Stage.Sustain:
-                    if (sampleCount >= holdSamples)
-                    {
-                        stage = Stage.Release;
-                        // El release parte del nivel actual, sea cual sea.
-                        releaseStep = env / Mathf.Max(1f, patch.release * sampleRate);
-                    }
-                    break;
-
-                case Stage.Release:
-                    env -= releaseStep;
-                    if (env <= 0f)
-                    {
-                        env = 0f;
-                        stage = Stage.Idle;
-                        busy = false; // la voz queda libre para otro evento
-                    }
-                    break;
+                mod = SineWave((float)modPhase) * p.fmIndex * freq;
+                modPhase += freq * p.fmRatio * dt;
+                modPhase -= System.Math.Floor(modPhase);
             }
 
-            return env;
+            float s = GetSample((float)phase);
+
+            phase += (freq + mod) * dt;
+            phase -= System.Math.Floor(phase);
+
+            if (p.noiseMix > 0f)
+            {
+                s = Mathf.Lerp(s, Noise(), p.noiseMix);
+            }
+
+            filterState += filterCoef * (s - filterState);
+            return filterState;
+        }
+
+        void OnAudioFilterRead(float[] data, int channels)
+        {
+            if (hasPending)
+            {
+                StartPendingNote();
+            }
+
+            if (noteOffRequested)
+            {
+                noteOffRequested = false;
+                if (stage != AdsrStage.Idle && stage != AdsrStage.Release)
+                {
+                    releaseStartValue = envelopeValue;
+                    stage = AdsrStage.Release;
+                }
+            }
+
+            if (stage == AdsrStage.Idle)
+            {
+                return;
+            }
+
+            float dt = 1f / sampleRate;
+
+            for (int i = 0; i < data.Length; i += channels)
+            {
+                float sample = 0f;
+
+                if (delaySamples > 0)
+                {
+                    delaySamples--;
+                }
+                else if (stage != AdsrStage.Idle)
+                {
+                    float env = EvaluateAdsr(dt);
+                    sample = p.amplitude * env * Tremolo(dt) * NextSample(dt);
+                    noteTime += dt;
+                }
+
+                sample = Mathf.Clamp(sample, -1f, 1f);
+
+                for (int ch = 0; ch < channels; ch++)
+                {
+                    data[i + ch] = sample;
+                }
+            }
         }
     }
 }

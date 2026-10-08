@@ -15,11 +15,11 @@ C:/Users/Yeye/Documents/AudioProcedural/nodulus
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-54312
+51604
 Successfully changed project path to: C:/Users/Yeye/Documents/AudioProcedural/nodulus
 C:/Users/Yeye/Documents/AudioProcedural/nodulus
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 37.43 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 67.35 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.2.4f1 (becced5a802b)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2020.2.4f1/Editor/Data/Resources/UnitySubsystems
@@ -35,104 +35,512 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2020.2.4f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2020.2.4f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2020.2.4f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56288
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56672
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2020.2.4f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001781 seconds.
+Registered in 0.002854 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 34.75 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 50.76 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.649 seconds
+- Completed reload, in  2.519 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.003091 seconds.
+Registered in 0.004936 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.40 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 0.54 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.701 seconds
+- Completed reload, in  1.238 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.09 seconds
-Refreshing native plugins compatible for Editor in 0.58 ms, found 0 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.10 seconds
+Refreshing native plugins compatible for Editor in 0.66 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1892 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 84.5 MB.
-System memory in use after: 84.6 MB.
+Unloading 1904 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.1 MB.
+System memory in use after: 85.2 MB.
 
-Unloading 37 unused Assets to reduce memory usage. Loaded Objects now: 2318.
-Total: 2.263200 ms (FindLiveObjects: 0.302300 ms CreateObjectMapping: 0.073000 ms MarkObjects: 1.788700 ms  DeleteObjects: 0.097200 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/Scripts
-  artifactKey: Guid(83aead9005a737748aac56b0c1c09e44) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts using Guid(83aead9005a737748aac56b0c1c09e44) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b681d76110b7f4ee29a12b84b39b1c16') in 0.016905 seconds
-  Import took 0.023363 seconds .
+Unloading 37 unused Assets to reduce memory usage. Loaded Objects now: 2333.
+Total: 5.058700 ms (FindLiveObjects: 0.553700 ms CreateObjectMapping: 0.176500 ms MarkObjects: 4.068700 ms  DeleteObjects: 0.254800 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.122121 seconds.
-  path: Assets/Scripts/View
-  artifactKey: Guid(6ba0ed6c01ac081448568b60a51cb04e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/View using Guid(6ba0ed6c01ac081448568b60a51cb04e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a45ce70279a71a13863f19bcb6fcf515') in 0.017380 seconds
-  Import took 0.020037 seconds .
+  path: Assets/ExperimentosSonido/InicioNivel_Exp01_AditivaTremolo.asset
+  artifactKey: Guid(5e2d6d775c2330644a7259117c6176e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/InicioNivel_Exp01_AditivaTremolo.asset using Guid(5e2d6d775c2330644a7259117c6176e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f4296e6a401c282df186f875879bdbda') in 0.160860 seconds
+  Import took 0.170003 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.746817 seconds.
-  path: Assets/Scripts/View/Items
-  artifactKey: Guid(838bad941b2dc094ea95cd63a818c44b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/View/Items using Guid(838bad941b2dc094ea95cd63a818c44b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dcd17dff6011ee7dacd87d7b5aae4a56') in 0.018595 seconds
-  Import took 0.025510 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 92.188906 seconds.
-  path: Assets/_Scenes
-  artifactKey: Guid(f842dbd2420ec064fbd16009d6d49d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/_Scenes using Guid(f842dbd2420ec064fbd16009d6d49d55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f29f41e237973cbc828e069c01298a39') in 0.017136 seconds
-  Import took 0.022695 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.514123 seconds.
-  path: Assets/_Scenes/NodulusGame.unity
-  artifactKey: Guid(7100d625d5becc142b514703766c9e59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/_Scenes/NodulusGame.unity using Guid(7100d625d5becc142b514703766c9e59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca9a0c084e206630fed0639412390b2e') in 0.023997 seconds
-  Import took 0.027404 seconds .
+  Time since last request: 0.001269 seconds.
+  path: Assets/ExperimentosSonido/Victoria_Exp01_ArpegioTriangularFourier.asset
+  artifactKey: Guid(a17e626a883549449971c16a803b8245) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/Victoria_Exp01_ArpegioTriangularFourier.asset using Guid(a17e626a883549449971c16a803b8245) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3441b24ace416e925d50856edee888f2') in 0.024967 seconds
+  Import took 0.032101 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.002364 seconds.
+Registered in 0.005098 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.40 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 0.72 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.645 seconds
+- Completed reload, in  1.427 seconds
 Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.39 ms, found 0 plugins.
+Refreshing native plugins compatible for Editor in 1.08 ms, found 0 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1861 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 82.3 MB.
-System memory in use after: 82.4 MB.
+Unloading 1873 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 82.9 MB.
+System memory in use after: 83.0 MB.
 
-Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2320.
-Total: 1.950800 ms (FindLiveObjects: 0.261100 ms CreateObjectMapping: 0.115400 ms MarkObjects: 1.549900 ms  DeleteObjects: 0.022500 ms)
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2335.
+Total: 4.885700 ms (FindLiveObjects: 0.264500 ms CreateObjectMapping: 0.080100 ms MarkObjects: 4.413500 ms  DeleteObjects: 0.122900 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 264.518561 seconds.
+  path: Assets/ExperimentosSonido/DesaparecerNodo_Exp01_CuadradaFiltrada.asset
+  artifactKey: Guid(37b7edc857e88954f84a1810d3ba5620) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/DesaparecerNodo_Exp01_CuadradaFiltrada.asset using Guid(37b7edc857e88954f84a1810d3ba5620) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec1d64e2b59b456f3c376b1504200c0b') in 0.056221 seconds
+  Import took 0.067782 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001722 seconds.
+  path: Assets/ExperimentosSonido/AparecerNodo_Exp01_GotaSeno.asset
+  artifactKey: Guid(42d8adc6beb1dde4aaa109a35d87d212) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/AparecerNodo_Exp01_GotaSeno.asset using Guid(42d8adc6beb1dde4aaa109a35d87d212) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30c7148d4d97289f04a43e5bd59e06ca') in 0.050232 seconds
+  Import took 0.059738 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.004538 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.967 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.57 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1873 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 82.9 MB.
+System memory in use after: 83.0 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2337.
+Total: 2.181900 ms (FindLiveObjects: 0.291400 ms CreateObjectMapping: 0.054400 ms MarkObjects: 1.786800 ms  DeleteObjects: 0.046800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 334.957634 seconds.
+  path: Assets/ExperimentosSonido/EncajarMid_Exp01_FourierCuadrada.asset
+  artifactKey: Guid(bb02d325e60495142acec8ef2a830240) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/EncajarMid_Exp01_FourierCuadrada.asset using Guid(bb02d325e60495142acec8ef2a830240) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '38a02e2657086ef869c1786a4860bf14') in 0.034089 seconds
+  Import took 0.040551 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000460 seconds.
+  path: Assets/ExperimentosSonido/EncajarHigh_Exp01_FourierCuadrada.asset
+  artifactKey: Guid(4d393e488defae9449e1e87ecb440d9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/EncajarHigh_Exp01_FourierCuadrada.asset using Guid(4d393e488defae9449e1e87ecb440d9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '349e19b3231b6fbb840e95980f6d5953') in 0.016969 seconds
+  Import took 0.022159 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000320 seconds.
+  path: Assets/ExperimentosSonido/SoltarHigh_Exp01_FMInarmonica.asset
+  artifactKey: Guid(cd68214b10b76c74796f79b3e1eb73f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/SoltarHigh_Exp01_FMInarmonica.asset using Guid(cd68214b10b76c74796f79b3e1eb73f8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '050e72fa01795c4d0a8c76594db2c7dc') in 0.022217 seconds
+  Import took 0.025817 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000457 seconds.
+  path: Assets/ExperimentosSonido/SoltarMid_Exp01_FMInarmonica.asset
+  artifactKey: Guid(5fea7f90fe2dafa499d6968956601912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/SoltarMid_Exp01_FMInarmonica.asset using Guid(5fea7f90fe2dafa499d6968956601912) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '86d34c2cfa6d6829f1a65e5887312fb8') in 0.017573 seconds
+  Import took 0.023549 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006884 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.19 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.810 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 1.02 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1873 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 82.9 MB.
+System memory in use after: 83.1 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2339.
+Total: 3.579400 ms (FindLiveObjects: 0.474300 ms CreateObjectMapping: 0.115700 ms MarkObjects: 2.935500 ms  DeleteObjects: 0.049700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 1771.761725 seconds.
+  path: Assets/ExperimentosSonido/FinNivel_Exp01_SierraFourierFiltrada.asset
+  artifactKey: Guid(6cf343e49237a3e479cd094639d90464) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/FinNivel_Exp01_SierraFourierFiltrada.asset using Guid(6cf343e49237a3e479cd094639d90464) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f64413464071cdb098b1f98532974b41') in 0.027058 seconds
+  Import took 0.031921 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.029203 seconds.
+  path: Assets/ExperimentosSonido/DeslizarHigh_Exp01_RuidoTremolo.asset
+  artifactKey: Guid(a99d7816940338f4aac37f04950bc262) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/DeslizarHigh_Exp01_RuidoTremolo.asset using Guid(a99d7816940338f4aac37f04950bc262) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a0c93e4d0affd1219b17faec82a6c697') in 0.023375 seconds
+  Import took 0.026615 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000485 seconds.
+  path: Assets/ExperimentosSonido/EncajarLow_Exp01_FourierCuadrada.asset
+  artifactKey: Guid(c6898d61fc91a3e4dbb41fafa19594cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/EncajarLow_Exp01_FourierCuadrada.asset using Guid(c6898d61fc91a3e4dbb41fafa19594cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed9058e4d92697f47a6eaabbf3e3a825') in 0.015669 seconds
+  Import took 0.022023 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000384 seconds.
+  path: Assets/ExperimentosSonido/SoltarLow_Exp01_FMInarmonica.asset
+  artifactKey: Guid(6854267b24b9b984da9320558f823905) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/SoltarLow_Exp01_FMInarmonica.asset using Guid(6854267b24b9b984da9320558f823905) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b2e5899d8b641b9960f25f76835fee9') in 0.019260 seconds
+  Import took 0.027062 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000287 seconds.
+  path: Assets/ExperimentosSonido/EncajarHigh_Exp01_FourierCuadrada.asset
+  artifactKey: Guid(4d393e488defae9449e1e87ecb440d9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/EncajarHigh_Exp01_FourierCuadrada.asset using Guid(4d393e488defae9449e1e87ecb440d9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37c309703b248843120c27e467b54c31') in 0.004545 seconds
+  Import took 0.010869 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000343 seconds.
+  path: Assets/ExperimentosSonido/Invalido_Exp01_FMDescendente.asset
+  artifactKey: Guid(697dac55dbe833a4fac17b716d910745) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/Invalido_Exp01_FMDescendente.asset using Guid(697dac55dbe833a4fac17b716d910745) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '23faa5606f7fba92e339fe7aa6dd4d19') in 0.021663 seconds
+  Import took 0.029260 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000693 seconds.
+  path: Assets/ExperimentosSonido/EncajarHigh_Exp01_FourierCuadrada.asset
+  artifactKey: Guid(4d393e488defae9449e1e87ecb440d9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/EncajarHigh_Exp01_FourierCuadrada.asset using Guid(4d393e488defae9449e1e87ecb440d9a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '37c309703b248843120c27e467b54c31') in 0.003231 seconds
+  Import took 0.009225 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000397 seconds.
+  path: Assets/ExperimentosSonido/Rotar_Exp01_TriangularAscendente.asset
+  artifactKey: Guid(8255d58b9c9dd3446962f1375d012de9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/Rotar_Exp01_TriangularAscendente.asset using Guid(8255d58b9c9dd3446962f1375d012de9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5925618c585036bee165c0181658bc56') in 0.024090 seconds
+  Import took 0.029506 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000307 seconds.
+  path: Assets/ExperimentosSonido/VolverSelector_Exp01_SenoDescendente.asset
+  artifactKey: Guid(75dc61e97483ad748967ed7db6850530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/VolverSelector_Exp01_SenoDescendente.asset using Guid(75dc61e97483ad748967ed7db6850530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9be6aecfe77b2f86dbcebf99a1f2e9a7') in 0.022722 seconds
+  Import took 0.027585 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006752 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.74 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.138 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.82 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1873 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 83.0 MB.
+System memory in use after: 83.1 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2341.
+Total: 2.398800 ms (FindLiveObjects: 0.163800 ms CreateObjectMapping: 0.054300 ms MarkObjects: 2.139200 ms  DeleteObjects: 0.038800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 1763.760723 seconds.
+  path: Assets/ExperimentosSonido/Interruptor_Exp01_CampanaFM.asset
+  artifactKey: Guid(ec4337b0de5f2c24884e7bc970476049) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/Interruptor_Exp01_CampanaFM.asset using Guid(ec4337b0de5f2c24884e7bc970476049) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30bb54fa40c989be31f724e960f47dfc') in 0.038365 seconds
+  Import took 0.043027 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 121.041408 seconds.
+  path: Assets/ExperimentosSonido/Ajustes_Exp01_WavetableFiltroCerrado.asset
+  artifactKey: Guid(b334d4d4cbdb1cd4088de3703740b121) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/Ajustes_Exp01_WavetableFiltroCerrado.asset using Guid(b334d4d4cbdb1cd4088de3703740b121) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b33dccd3592e1eb2148833ddac94dbf9') in 0.026955 seconds
+  Import took 0.032392 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000402 seconds.
+  path: Assets/ExperimentosSonido/Confirmar_Exp01_DosTonosQuinta.asset
+  artifactKey: Guid(d67bd1d15be363b4d9d00441ed5eeda3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/Confirmar_Exp01_DosTonosQuinta.asset using Guid(d67bd1d15be363b4d9d00441ed5eeda3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b539e6e783ea55f805ed360c50b975bf') in 0.021994 seconds
+  Import took 0.027059 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000405 seconds.
+  path: Assets/ExperimentosSonido/DeslizarLow_Exp01_RuidoTremolo.asset
+  artifactKey: Guid(d137893b3e9a6dc4fbf8b8ab2ef256b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/DeslizarLow_Exp01_RuidoTremolo.asset using Guid(d137893b3e9a6dc4fbf8b8ab2ef256b6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '821f17a38be52a4444a783d6cf437c21') in 0.015572 seconds
+  Import took 0.020338 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000413 seconds.
+  path: Assets/ExperimentosSonido/DeslizarHigh_Exp01_RuidoTremolo.asset
+  artifactKey: Guid(a99d7816940338f4aac37f04950bc262) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/DeslizarHigh_Exp01_RuidoTremolo.asset using Guid(a99d7816940338f4aac37f04950bc262) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c2b376a99b088651c6866c82f6cd0e2b') in 0.004506 seconds
+  Import took 0.009075 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000353 seconds.
+  path: Assets/ExperimentosSonido/DeslizarMid_Exp01_RuidoTremolo.asset
+  artifactKey: Guid(841095142afabaf4ebf8e22226331b37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/DeslizarMid_Exp01_RuidoTremolo.asset using Guid(841095142afabaf4ebf8e22226331b37) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55c7f1b1cdbb35e23609e369c61bd8c1') in 0.021571 seconds
+  Import took 0.027017 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000503 seconds.
+  path: Assets/ExperimentosSonido/VolverSelector_Exp01_SenoDescendente.asset
+  artifactKey: Guid(75dc61e97483ad748967ed7db6850530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/VolverSelector_Exp01_SenoDescendente.asset using Guid(75dc61e97483ad748967ed7db6850530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b2f25444e27a46bebb4dd64dca14ddd8') in 0.007714 seconds
+  Import took 0.013316 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000323 seconds.
+  path: Assets/ExperimentosSonido/Reiniciar_Exp01_RuidoMasTono.asset
+  artifactKey: Guid(e2bd448b913c64149831517eba6b706e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/Reiniciar_Exp01_RuidoMasTono.asset using Guid(e2bd448b913c64149831517eba6b706e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc29ca9abcbc3ae6191a579318ef59b3') in 0.017006 seconds
+  Import took 0.021419 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000436 seconds.
+  path: Assets/ExperimentosSonido/NivelDesbloqueado_Exp01_WavetableVibrato.asset
+  artifactKey: Guid(225e946468df59742893154594f62080) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/NivelDesbloqueado_Exp01_WavetableVibrato.asset using Guid(225e946468df59742893154594f62080) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '189be6b32601402e104be6c80a57880c') in 0.016501 seconds
+  Import took 0.021862 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000726 seconds.
+  path: Assets/ExperimentosSonido/FinNivel_Exp01_SierraFourierFiltrada.asset
+  artifactKey: Guid(6cf343e49237a3e479cd094639d90464) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/FinNivel_Exp01_SierraFourierFiltrada.asset using Guid(6cf343e49237a3e479cd094639d90464) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c55b028b5badd744f4554ad17c51b1f5') in 0.034334 seconds
+  Import took 0.040026 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002767 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.43 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.711 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.50 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1873 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 83.2 MB.
+System memory in use after: 83.3 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2343.
+Total: 1.899000 ms (FindLiveObjects: 0.142300 ms CreateObjectMapping: 0.040900 ms MarkObjects: 1.684900 ms  DeleteObjects: 0.028800 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 63.849535 seconds.
+  path: Assets/ExperimentosSonido/VolverSelector_Exp01_SenoDescendente.asset
+  artifactKey: Guid(75dc61e97483ad748967ed7db6850530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/VolverSelector_Exp01_SenoDescendente.asset using Guid(75dc61e97483ad748967ed7db6850530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e6748e017816b08a115b158eb4c628bc') in 0.033570 seconds
+  Import took 0.039084 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000241 seconds.
+  path: Assets/ExperimentosSonido/Victoria_Exp01_ArpegioTriangularFourier.asset
+  artifactKey: Guid(a17e626a883549449971c16a803b8245) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/Victoria_Exp01_ArpegioTriangularFourier.asset using Guid(a17e626a883549449971c16a803b8245) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ebaa8cb1851891701fb8479f77a2bb3') in 0.002688 seconds
+  Import took 0.007607 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.005941 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.60 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.255 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.65 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1873 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 83.2 MB.
+System memory in use after: 83.3 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2345.
+Total: 2.365100 ms (FindLiveObjects: 0.190000 ms CreateObjectMapping: 0.058200 ms MarkObjects: 2.072000 ms  DeleteObjects: 0.042900 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.002625 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.44 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.663 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.44 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1873 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 83.2 MB.
+System memory in use after: 83.3 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2347.
+Total: 1.898800 ms (FindLiveObjects: 0.192800 ms CreateObjectMapping: 0.049300 ms MarkObjects: 1.631100 ms  DeleteObjects: 0.023700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 781.410193 seconds.
+  path: Assets/ExperimentosSonido/InicioNivel_Exp01_AditivaTremolo.asset
+  artifactKey: Guid(5e2d6d775c2330644a7259117c6176e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/InicioNivel_Exp01_AditivaTremolo.asset using Guid(5e2d6d775c2330644a7259117c6176e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a053e8dd5dfe328f63c623fe99012fb3') in 0.020066 seconds
+  Import took 0.027788 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006307 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.157 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.80 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1873 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 83.2 MB.
+System memory in use after: 83.3 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2349.
+Total: 2.814600 ms (FindLiveObjects: 0.226400 ms CreateObjectMapping: 0.066600 ms MarkObjects: 2.481000 ms  DeleteObjects: 0.038500 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.006422 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 1.33 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Invoked RoslynAnalysisRunner static constructor.
+RoslynAnalysisRunner will not be running.
+RoslynAnalysisRunner has terminated.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.090 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.59 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1873 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 83.2 MB.
+System memory in use after: 83.3 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2351.
+Total: 2.867800 ms (FindLiveObjects: 0.281000 ms CreateObjectMapping: 0.096100 ms MarkObjects: 2.440000 ms  DeleteObjects: 0.045700 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 519.469122 seconds.
+  path: Assets/ExperimentosSonido/NivelDesbloqueado_Exp01_WavetableVibrato.asset
+  artifactKey: Guid(225e946468df59742893154594f62080) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/NivelDesbloqueado_Exp01_WavetableVibrato.asset using Guid(225e946468df59742893154594f62080) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30c8ac2ad993fcf34e12b42cb6d3fde4') in 0.016793 seconds
+  Import took 0.020462 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.035054 seconds.
+  path: Assets/ExperimentosSonido/InicioNivel_Exp01_AditivaTremolo.asset
+  artifactKey: Guid(5e2d6d775c2330644a7259117c6176e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/InicioNivel_Exp01_AditivaTremolo.asset using Guid(5e2d6d775c2330644a7259117c6176e1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56955561152d680d1351fa4b199b5580') in 0.002948 seconds
+  Import took 0.005804 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000305 seconds.
+  path: Assets/ExperimentosSonido/VolverSelector_Exp01_SenoDescendente.asset
+  artifactKey: Guid(75dc61e97483ad748967ed7db6850530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/ExperimentosSonido/VolverSelector_Exp01_SenoDescendente.asset using Guid(75dc61e97483ad748967ed7db6850530) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1d801fd8fe186908a9423a5a4179ed37') in 0.002837 seconds
+  Import took 0.006514 seconds .
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

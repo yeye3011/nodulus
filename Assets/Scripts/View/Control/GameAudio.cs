@@ -1,11 +1,8 @@
 using UnityEngine;
-using ProceduralAudio; // [NUEVO] acceso al sistema de audio procedural
+using ProceduralAudio;
 
 namespace View.Control
 {
-    /// <summary>
-    /// The main controller for the game's audio. Handles SFX along with looping music.
-    /// </summary>
     public class GameAudio : MonoBehaviour
     {
         private const string MusicStatusKey = "music.status";
@@ -15,6 +12,16 @@ namespace View.Control
 
         public AudioClip[] MusicClips;
         public AudioClip[] SfxClips;
+
+        [Header("Rediseño procedural (pruebas)")]
+        [Tooltip("Silencia los efectos .wav originales que aun no tienen version procedural.")]
+        public bool muteOriginalSfx = true;
+
+        [Tooltip("Silencia la musica original de fondo.")]
+        public bool muteOriginalMusic = true;
+
+        [Tooltip("Escribe en la Console cada evento de sonido que dispara el juego.")]
+        public bool logSoundEvents = true;
 
         private AudioSource _musicSource;
         private int _musicVolumeTweenId;
@@ -30,12 +37,22 @@ namespace View.Control
                 }
 
                 _musicEnabled = value;
-                _musicSource.volume = value ? MusicVolume : 0f;
+
+                if (_musicSource != null)
+                {
+                    _musicSource.volume = value ? MusicVolume : 0f;
+                }
                 PlayerPrefs.SetInt(MusicStatusKey, value ? 0 : 1);
+
+                if (_music != null)
+                {
+                    _music.SetEnabled(value);
+                }
             }
         }
 
-        // [NUEVO] Referencia al manager procedural que genera los efectos.
+        private ProceduralMusicSystem _music;
+
         private ProceduralAudioManager _procedural;
 
         private bool _sfxEnabled = true;
@@ -49,16 +66,18 @@ namespace View.Control
             }
         }
 
-        // [NUEVO] Awake corre antes que cualquier Start, asi el manager existe
-        // antes de que otro script pida un sonido. Si el manager ya fue
-        // agregado a mano en la escena se usa ese (y sus valores del
-        // Inspector); si no, se crea por codigo sin modificar la escena.
         private void Awake()
         {
             _procedural = GetComponent<ProceduralAudioManager>();
             if (_procedural == null)
             {
                 _procedural = gameObject.AddComponent<ProceduralAudioManager>();
+            }
+
+            _music = GetComponent<ProceduralMusicSystem>();
+            if (_music == null)
+            {
+                _music = gameObject.AddComponent<ProceduralMusicSystem>();
             }
         }
 
@@ -79,21 +98,37 @@ namespace View.Control
             SfxEnabled = PlayerPrefs.GetInt(SfxStatusKey) == 0;
         }
 
-        /// <summary>
-        /// Plays the given sound clip with the specified parameters.
-        /// </summary>
         public void Play(GameClip clip, float delay = 0f, float volume = 1f, float startTime = 0f)
         {
+            if (_music != null)
+            {
+                _music.OnGameEvent(clip);
+            }
+
             if (!enabled || !SfxEnabled)
             {
                 return;
             }
 
-            // [NUEVO] Primero se intenta el sonido procedural. Si el evento ya
-            // tiene patch, el manager lo genera y aqui termina. Si todavia no
-            // tiene, se reproduce el .wav original como respaldo, para que el
-            // juego nunca quede mudo mientras se rediseñan los eventos.
             if (_procedural != null && _procedural.Trigger(clip, volume, delay))
+            {
+                if (logSoundEvents)
+                {
+                    Debug.Log("[Audio] " + clip + " -> PROCEDURAL");
+                }
+                return;
+            }
+
+            if (logSoundEvents)
+            {
+                Debug.Log("[Audio] " + clip + (muteOriginalSfx ? " -> original SILENCIADO" : " -> original .wav"));
+            }
+            if (muteOriginalSfx)
+            {
+                return;
+            }
+
+            if ((int)clip >= SfxClips.Length)
             {
                 return;
             }
@@ -102,12 +137,14 @@ namespace View.Control
             LeanAudio.play(audioClip, volume, delay, time: startTime);
         }
 
-        /// <summary>
-        /// Plays the given music clip with the specifide parameters.
-        /// </summary>
         public void Play(MusicClip clip, float fadeTime = 0f, float delay = 0f, float volume = 1f, float startTime = 0f)
         {
             if (!enabled || !MusicEnabled)
+            {
+                return;
+            }
+
+            if (muteOriginalMusic)
             {
                 return;
             }
@@ -127,16 +164,12 @@ namespace View.Control
 
         private void StartMusic()
         {
-            // TODO: make configurable
             const float fadeTime = 3f;
             const float startTime = 32f;
             Play(MusicClip.Ambient02, fadeTime: fadeTime, volume: MusicVolume, startTime: startTime);
         }
     }
 
-    /// <summary>
-    /// A one-to-one map of all sound clips
-    /// </summary>
     public enum GameClip
     {
         GameStart,
@@ -156,12 +189,14 @@ namespace View.Control
         GameEnd,
         LevelEnable,
         ArcMoveMid,
-        ArcMoveLow
+        ArcMoveLow,
+
+        UiConfirm,
+        UiPause,    
+        UiRestart,  
+        UiToggle
     }
 
-    /// <summary>
-    /// A one-to-one map of all music clips
-    /// </summary>
     public enum MusicClip
     {
         Ambient01,
